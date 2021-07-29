@@ -1,8 +1,24 @@
-import React from 'react';
-import welcomeIcon from './assets/welcome.jpg';
+import React, { useState, useEffect } from 'react'
+import { MerchantsList } from './components/MerchantsList'
 
-const App: React.FunctionComponent = () => (
-  <img src={welcomeIcon} alt="Welcome!"/>
-);
+const App: React.FunctionComponent = () => {
+  const [merchants, setMerchants] = useState([])
 
-export default App;
+  const fetchData = async () => {
+    const response = await fetch('http://localhost:3002/merchants')
+    const data = await response.json()
+    setMerchants(data)
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+  return (
+    <>
+      <MerchantsList items={merchants} />
+    </>
+  )
+}
+
+export default App
