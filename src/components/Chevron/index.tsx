@@ -1,1 +1,1 @@
-export { Chevron } from './Chevron'
+export { Chevron, Direction } from './Chevron'

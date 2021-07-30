@@ -4,4 +4,11 @@ export interface MerchantDto {
   id: string
   isBill: boolean
   name: string
+  transactions: TransactionDto[]
+}
+
+export interface TransactionDto {
+  amount: number
+  date: string
+  id: number
 }
