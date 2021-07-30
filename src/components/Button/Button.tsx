@@ -14,4 +14,7 @@ const StyledButton = styled.button`
   border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
+  &:hover {
+    background: ${colors.middleBlueGreen};
+  }
 `
