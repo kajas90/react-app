@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import styled from 'styled-components'
 import { Merchant } from '../Merchant'
 import { MerchantDto } from '../../shared/types'
 
@@ -8,10 +9,16 @@ interface MerchantsListProps {
 
 export const MerchantsList: FC<MerchantsListProps> = ({ items }) => {
   return (
-    <ul>
+    <ListWrapper>
       {items.map((item) => (
         <Merchant key={item.id} merchant={item} />
       ))}
-    </ul>
+    </ListWrapper>
   )
 }
+
+const ListWrapper = styled.ul`
+  list-style: none;
+  padding: 24px;
+  margin: 0;
+`
