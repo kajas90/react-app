@@ -40,7 +40,7 @@ export const Merchant: FC<MerchantProps> = ({ merchant }) => {
 }
 
 const Wrapper = styled.li`
-  box-shadow: 1px 0px 5px 1px ${colors.grey};
+  // box-shadow: 1px 0px 5px 1px ${colors.grey};
   background: ${colors.white};
   border-radius: 4px;
   margin-bottom: 16px;

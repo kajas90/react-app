@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 import styled from 'styled-components'
 import { Merchant } from '../Merchant'
 import { MerchantDto } from '../../shared/types'
@@ -19,6 +19,6 @@ export const MerchantsList: FC<MerchantsListProps> = ({ items }) => {
 
 const ListWrapper = styled.ul`
   list-style: none;
-  padding: 24px;
+  padding: 0;
   margin: 0;
 `
