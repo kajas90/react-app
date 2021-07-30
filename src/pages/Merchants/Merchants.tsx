@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { MerchantsList } from '../../components/MerchantsList'
+import { MerchantsList } from './components/MerchantsList'
 import { Tabs } from '../../components/Tabs'
 import { Page } from '../../components/Page'
 

@@ -1,10 +1,10 @@
 import React, { FC, useState, useCallback } from 'react'
 import styled from 'styled-components'
-import { MerchantDto } from '../../shared/types'
-import { colors } from '../../shared/theme'
+import { MerchantDto } from '../../../../shared/types'
+import { colors } from '../../../../shared/theme'
 
-import { Button } from '../Button/Button'
-import { Chevron, Direction } from '../Chevron'
+import { Button } from '../../../../components/Button/Button'
+import { Chevron, Direction } from '../../../../components/Chevron'
 
 interface MerchantProps {
   merchant: MerchantDto

@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import styled from 'styled-components'
 import { Merchant } from '../Merchant'
-import { MerchantDto } from '../../shared/types'
+import { MerchantDto } from '../../../../shared/types'
 
 interface MerchantsListProps {
   items: MerchantDto[]
