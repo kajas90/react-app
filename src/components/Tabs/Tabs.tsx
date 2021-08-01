@@ -1,50 +1,31 @@
-import { FC } from 'react'
-import styled from 'styled-components'
-import { colors } from '../../shared/theme'
+import React, { useContext, useState, FC, Children } from 'react'
+import { TabsNavigation } from './TabsNavigation'
+import { TabsContent } from './TabsContent'
 
-export const Tabs: FC<{
-  items: string[]
-  activeTab: number
-  changeTab: (key: number) => void
-}> = ({ items, activeTab, changeTab }) => (
-  <Wrapper>
-    {items.map((item, index) => (
-      <Tab
-        onClick={() => changeTab(index)}
-        key={item}
-        isActive={index === activeTab}
-      >
-        {item}
-      </Tab>
-    ))}
-  </Wrapper>
-)
+interface ContextProps {
+  active: number
+  setActive: React.Dispatch<React.SetStateAction<number>>
+}
 
-const Wrapper = styled.nav`
-  display: inline-block;
-  border-radius: 4px;
-  background: ${colors.white};
-  margin-bottom: 24px;
-`
+export const tabsContext = React.createContext<Partial<ContextProps>>({
+  active: 0
+})
 
-const Tab = styled.a<{ isActive?: boolean }>`
-  display: inline-block;
-  padding: 16px 16px 13px;
-  cursor: pointer;
-  border-bottom: 3px solid ${colors.white};
-  color: ${colors.grey};
+export const Tabs = ({ children }: { children: React.ReactElement[] }) => {
+  const [active, setActive] = useState(0)
+  const ContextProvider = tabsContext.Provider
 
-  &:last-child {
-    border-bottom-right-radius: 4px;
-  }
+  const labels = Children.map(children, (child) => child.props.label)
 
-  &:first-child {
-    border-bottom-left-radius: 4px;
-  }
+  return (
+    <ContextProvider value={{ active, setActive }}>
+      <TabsNavigation items={labels} />
+      <TabsContent>{children}</TabsContent>
+    </ContextProvider>
+  )
+}
 
-  ${({ isActive }) =>
-    isActive &&
-    `border-bottom: 3px solid ${colors.middleBlueGreen}; 
-    font-weight: bold;
-    color: ${colors.black};`}
-`
+export const Tab: FC<{ label: string }> = ({ children }) => <>{children}</>
+
+export const useTabsContext = () =>
+  useContext<Partial<ContextProps>>(tabsContext)

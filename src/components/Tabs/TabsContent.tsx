@@ -1,17 +1,13 @@
 import { Children, FC } from 'react'
+import { useTabsContext } from './Tabs'
 
-interface TabsContentProps {
-  selectedKey: number
-}
+export const TabsContent: FC = ({ children }) => {
+  const { active } = useTabsContext()
 
-export const TabsContent: FC<TabsContentProps> = ({
-  children,
-  selectedKey = 0
-}) => {
-  if (!children) {
+  if (!children || active === undefined) {
     return null
   }
 
   const childrenArray = Children.toArray(children) as JSX.Element[]
-  return childrenArray[selectedKey]
+  return childrenArray[active]
 }
