@@ -13,10 +13,7 @@ interface MerchantProps {
 export const Merchant: FC<MerchantProps> = ({ merchant }) => {
   const [isExpanded, setExpanded] = useState(false)
 
-  const toggleDetails = useCallback(
-    () => setExpanded((flag) => !flag),
-    [isExpanded]
-  )
+  const toggleDetails = useCallback(() => setExpanded((flag) => !flag), [])
   return (
     <Wrapper onClick={toggleDetails}>
       <Header>

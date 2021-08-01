@@ -1,7 +1,9 @@
 import React from 'react'
+import { Provider } from 'react-redux'
 import { createGlobalStyle } from 'styled-components'
 import { Merchants } from './pages/Merchants'
 import { colors } from './shared/theme'
+import { store } from './config/store'
 
 const BaseStyles = createGlobalStyle`
   body {
@@ -16,10 +18,10 @@ const BaseStyles = createGlobalStyle`
 
 const App: React.FunctionComponent = () => {
   return (
-    <>
+    <Provider store={store}>
       <BaseStyles />
       <Merchants />
-    </>
+    </Provider>
   )
 }
 

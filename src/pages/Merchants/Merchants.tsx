@@ -1,34 +1,29 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  requestMerchants,
+  potentialBillMerchantsSelector
+} from '../../ducks/merchants'
 import { MerchantsList } from './components/MerchantsList'
 import { Tab, Tabs } from '../../components/Tabs'
 import { Page } from '../../components/Page'
-import { MerchantDto } from '../../shared/types'
 
 export const Merchants = () => {
-  const [merchants, setMerchants] = useState<MerchantDto[]>([])
-
-  const fetchData = async () => {
-    const response = await fetch('http://localhost:3002/merchants')
-    const data = await response.json()
-    setMerchants(data)
-  }
+  const dispatch = useDispatch()
+  const merchants = useSelector(potentialBillMerchantsSelector(true))
 
   useEffect(() => {
-    fetchData()
-  }, [])
+    dispatch(requestMerchants())
+  }, [dispatch])
 
   return (
     <Page>
       <Tabs>
         <Tab label="bills">
-          <MerchantsList
-            items={merchants.filter((merchant) => merchant.isBill)}
-          />
+          <MerchantsList items={merchants} />
         </Tab>
         <Tab label="potential bills">
-          <MerchantsList
-            items={merchants.filter((merchant) => !merchant.isBill)}
-          />
+          <MerchantsList items={[]} />
         </Tab>
       </Tabs>
     </Page>
