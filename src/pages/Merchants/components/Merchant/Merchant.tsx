@@ -29,21 +29,23 @@ export const Merchant: FC<MerchantProps> = ({ merchant }) => {
         </Actions>
       </Header>
       {isExpanded && (
-        <>
-          {merchant.transactions.map((transaction) => (
-            <div>{transaction.amount}</div>
+        <Details>
+          {merchant.transactions.map((transaction, index) => (
+            <div key={`${transaction.date}${index}`}>
+              {transaction.date} {transaction.amount}
+            </div>
           ))}
-        </>
+        </Details>
       )}
     </Wrapper>
   )
 }
 
 const Wrapper = styled.li`
-  // box-shadow: 1px 0px 5px 1px ${colors.grey};
   background: ${colors.white};
   border-radius: 4px;
   margin-bottom: 16px;
+  padding: 24px;
 
   &:hover {
     border-left: 3px solid ${colors.middleBlueGreen};
@@ -66,8 +68,11 @@ const StyledChevron = styled(Chevron)`
 `
 
 const Header = styled.div`
-  padding: 24px;
   display: flex;
   align-items: center;
   cursor: pointer;
+`
+
+const Details = styled.div`
+  padding-top: 16px;
 `

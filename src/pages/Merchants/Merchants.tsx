@@ -20,12 +20,12 @@ export const Merchants = () => {
   return (
     <Page>
       <Tabs>
-        <Tab label="merchants">
+        <Tab label="bills">
           <MerchantsList
             items={merchants.filter((merchant) => merchant.isBill)}
           />
         </Tab>
-        <Tab label="merchants 2">
+        <Tab label="potential bills">
           <MerchantsList
             items={merchants.filter((merchant) => !merchant.isBill)}
           />
