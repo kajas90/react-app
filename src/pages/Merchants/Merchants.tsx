@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react'
 import { MerchantsList } from './components/MerchantsList'
-import { Tabs } from '../../components/Tabs'
+import { Tabs, TabsContent } from '../../components/Tabs'
 import { Page } from '../../components/Page'
+import { MerchantDto } from '../../shared/types'
 
 export const Merchants = () => {
-  const [merchants, setMerchants] = useState([])
+  const [merchants, setMerchants] = useState<MerchantDto[]>([])
+  const [activeTab, setActiveTab] = useState<number>(0)
 
   const fetchData = async () => {
     const response = await fetch('http://localhost:3002/merchants')
@@ -18,8 +20,19 @@ export const Merchants = () => {
 
   return (
     <Page>
-      <Tabs activeTab="merchants" items={['merchants', 'other']} />
-      <MerchantsList items={merchants} />
+      <Tabs
+        activeTab={activeTab}
+        changeTab={setActiveTab}
+        items={['merchants', 'other']}
+      />
+      <TabsContent selectedKey={activeTab}>
+        <MerchantsList
+          items={merchants.filter((merchant) => merchant.isBill)}
+        />
+        <MerchantsList
+          items={merchants.filter((merchant) => !merchant.isBill)}
+        />
+      </TabsContent>
     </Page>
   )
 }

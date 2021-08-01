@@ -2,13 +2,20 @@ import { FC } from 'react'
 import styled from 'styled-components'
 import { colors } from '../../shared/theme'
 
-export const Tabs: FC<{ items: string[]; activeTab: string }> = ({
-  items,
-  activeTab
-}) => (
+export const Tabs: FC<{
+  items: string[]
+  activeTab: number
+  changeTab: (key: number) => void
+}> = ({ items, activeTab, changeTab }) => (
   <Wrapper>
-    {items.map((item) => (
-      <Tab isActive={item === activeTab}>{item}</Tab>
+    {items.map((item, index) => (
+      <Tab
+        onClick={() => changeTab(index)}
+        key={item}
+        isActive={index === activeTab}
+      >
+        {item}
+      </Tab>
     ))}
   </Wrapper>
 )
