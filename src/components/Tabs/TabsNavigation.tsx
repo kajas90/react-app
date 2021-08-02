@@ -21,6 +21,7 @@ export const TabsNavigation: FC<TabsNavigationProps> = ({ items }) => {
           onClick={() => setActive(index)}
           key={item}
           isActive={index === active}
+          data-test={`tab-nav-item-${item}`}
         >
           {item}
         </Tab>

@@ -1,1 +1,0 @@
-export { Merchant } from './Merchant'

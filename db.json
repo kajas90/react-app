@@ -4,7 +4,7 @@
       "categoryId": 1,
       "iconUrl": "https://pbs.twimg.com/profile_images/1151788824093188097/wHfb5mYZ_bigger.png",
       "id": "5a5caa1efe33900100fd8ed5",
-      "isBill": false,
+      "isBill": true,
       "name": "Vodafone",
       "transactions": [
         {
@@ -140,7 +140,7 @@
       "categoryId": 3,
       "iconUrl": null,
       "id": "5a5cab3bfe33900100fd8ed9",
-      "isBill": true,
+      "isBill": false,
       "name": "Transfer to flatmate",
       "transactions": [
         {
@@ -174,7 +174,7 @@
       "categoryId": 3,
       "iconUrl": "https://pbs.twimg.com/profile_images/984840751929544704/iv3Y8YNC_bigger.jpg",
       "id": "5a5cab88fe33900100fd8eda",
-      "isBill": true,
+      "isBill": false,
       "name": "AMEX Payment",
       "transactions": [
         {
@@ -208,7 +208,7 @@
       "categoryId": 4,
       "iconUrl": "https://pbs.twimg.com/profile_images/1283078790076403713/cNZHuaOx_bigger.jpg",
       "id": "5a5cabd4fe33900100fd8edb",
-      "isBill": true,
+      "isBill": false,
       "name": "TFL",
       "transactions": [
         {

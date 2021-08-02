@@ -5,10 +5,12 @@ import { createSelector } from 'reselect'
 
 interface MerchantsState {
   items: MerchantDto[]
+  isLoading: boolean
 }
 
 export const merchantsInitialState: MerchantsState = {
-  items: []
+  items: [],
+  isLoading: false
 }
 
 // Actions
@@ -16,7 +18,48 @@ export const merchantsInitialState: MerchantsState = {
 export enum MerchantsActionTypes {
   REQUEST_MERCHANTS = 'merchants/request',
   RECEIVE_MERCHANTS = 'merchants/receive',
-  REQUEST_MERCHANTS_ERROR = 'merchants/request/error'
+  REQUEST_MERCHANTS_ERROR = 'merchants/request/error',
+  PATCH_MERCHANT = 'merchants/patch',
+  PATCH_MERCHANT_SUCCESS = 'merchants/patch/success',
+  PATCH_MERCHANT_ERROR = 'merchants/patch/error'
+}
+
+export interface PatchMerchant extends Action {
+  type: MerchantsActionTypes.PATCH_MERCHANT
+  id: string
+  isBill: boolean
+}
+
+export const patchMerchant = (id: string, isBill: boolean): PatchMerchant => {
+  return {
+    type: MerchantsActionTypes.PATCH_MERCHANT,
+    id,
+    isBill
+  }
+}
+
+export interface PatchMerchantSuccess extends Action {
+  type: MerchantsActionTypes.PATCH_MERCHANT_SUCCESS
+  merchant: MerchantDto
+}
+
+export const patchMerchantSuccess = (
+  merchant: MerchantDto
+): PatchMerchantSuccess => {
+  return {
+    type: MerchantsActionTypes.PATCH_MERCHANT_SUCCESS,
+    merchant
+  }
+}
+
+export interface PatchMerchantsError extends Action {
+  type: MerchantsActionTypes.PATCH_MERCHANT_ERROR
+}
+
+export const patchMerchantsError = (): PatchMerchantsError => {
+  return {
+    type: MerchantsActionTypes.PATCH_MERCHANT_ERROR
+  }
 }
 
 export interface RequestMerchants extends Action {
@@ -55,6 +98,8 @@ export type MerchantsAction =
   | RequestMerchants
   | ReceiveMerchants
   | RequestMerchantsError
+  | PatchMerchant
+  | PatchMerchantSuccess
 
 // Reducer
 
@@ -68,6 +113,20 @@ export const merchant = (
         ...state,
         items: action.data
       }
+
+    case MerchantsActionTypes.PATCH_MERCHANT:
+      return {
+        ...state,
+        isLoading: true
+      }
+    case MerchantsActionTypes.PATCH_MERCHANT_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        items: state.items.map((item) =>
+          item.id === action.merchant.id ? action.merchant : item
+        )
+      }
     default:
       return state
   }
@@ -76,6 +135,12 @@ export const merchant = (
 // Selectors
 
 const merchantRootState = (state: RootState) => state.merchant
+
+export const merchantsLoadingSelector = createSelector<
+  RootState,
+  MerchantsState,
+  boolean
+>(merchantRootState, (root) => root.isLoading)
 
 const merchantsSelector = createSelector<
   RootState,

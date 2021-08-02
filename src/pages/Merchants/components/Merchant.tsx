@@ -1,10 +1,15 @@
-import React, { FC, useState, useCallback } from 'react'
+import { FC, useState, useCallback } from 'react'
 import styled from 'styled-components'
-import { MerchantDto } from '../../../../shared/types'
-import { colors } from '../../../../shared/theme'
+import { MerchantDto } from '../../../shared/types'
+import { colors } from '../../../shared/theme'
 
-import { Button } from '../../../../components/Button/Button'
-import { Chevron, Direction } from '../../../../components/Chevron'
+import { Button } from '../../../components/Button'
+import { Chevron, Direction } from '../../../components/Chevron'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  patchMerchant,
+  merchantsLoadingSelector
+} from '../../../ducks/merchants'
 
 interface MerchantProps {
   merchant: MerchantDto
@@ -12,14 +17,25 @@ interface MerchantProps {
 
 export const Merchant: FC<MerchantProps> = ({ merchant }) => {
   const [isExpanded, setExpanded] = useState(false)
-
   const toggleDetails = useCallback(() => setExpanded((flag) => !flag), [])
+  const dispatch = useDispatch()
+  const isLoading = useSelector(merchantsLoadingSelector)
+
+  const updateMerchant = useCallback(() => {
+    if (!isLoading) {
+      dispatch(patchMerchant(merchant.id, !merchant.isBill))
+    }
+  }, [isLoading, merchant.id, merchant.isBill, dispatch])
+
   return (
-    <Wrapper onClick={toggleDetails}>
+    <Wrapper onClick={toggleDetails} data-test="merchant-wrapper">
       <Header>
         <Title>{merchant.name}</Title>
+        <Counter>{merchant.transactions.length} transactions</Counter>
         <Actions>
-          <Button>do stuff</Button>
+          <Button disabled={isLoading} onClick={updateMerchant}>
+            {merchant.isBill ? 'remove bill' : 'set as bill'}
+          </Button>
           <StyledChevron
             direction={isExpanded ? Direction.DOWN : Direction.RIGHT}
           />
@@ -52,6 +68,15 @@ const Wrapper = styled.li`
 const Title = styled.h4`
   margin: 0;
   padding: 0;
+`
+
+const Counter = styled.span`
+  padding: 4px 8px;
+  background: ${colors.middleBlueGreen};
+  color: ${colors.white};
+  margin: 0 8px;
+  border-radius: 4px;
+  font-size: 12px;
 `
 
 const Actions = styled.div`

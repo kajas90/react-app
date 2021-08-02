@@ -1,16 +1,12 @@
 import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import {
-  requestMerchants,
-  potentialBillMerchantsSelector
-} from '../../ducks/merchants'
+import { useDispatch } from 'react-redux'
+import { requestMerchants } from '../../ducks/merchants'
 import { MerchantsList } from './components/MerchantsList'
 import { Tab, Tabs } from '../../components/Tabs'
 import { Page } from '../../components/Page'
 
 export const Merchants = () => {
   const dispatch = useDispatch()
-  const merchants = useSelector(potentialBillMerchantsSelector(true))
 
   useEffect(() => {
     dispatch(requestMerchants())
@@ -20,10 +16,10 @@ export const Merchants = () => {
     <Page>
       <Tabs>
         <Tab label="bills">
-          <MerchantsList items={merchants} />
+          <MerchantsList isBill title="Bills" />
         </Tab>
         <Tab label="potential bills">
-          <MerchantsList items={[]} />
+          <MerchantsList title="Potential bills" />
         </Tab>
       </Tabs>
     </Page>
