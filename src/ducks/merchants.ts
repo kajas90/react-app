@@ -1,4 +1,4 @@
-import { RootState } from './../config/store'
+import { RootState } from '../config/store'
 import { MerchantDto } from './../shared/types'
 import { Action } from 'redux'
 import { createSelector } from 'reselect'
